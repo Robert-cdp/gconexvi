@@ -23,7 +23,7 @@ class CategoryController extends Controller
     {
         Category::create($request->validated());
 
-        return redirect()->route('categories.index')->with('success', 'Creado');
+        return redirect()->route('categories.index')->with('success', 'Creado.');
     }
 
     public function show(string $slug)

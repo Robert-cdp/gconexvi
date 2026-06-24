@@ -27,7 +27,7 @@ class UserController extends Controller
 
     public function edit(string $slug)
     {
-        $user = User::slug($slug)->firstOrFail()    ;
+        $user = User::slug($slug)->firstOrFail();
         return view('user.edit', $user->slug);
     }
 
@@ -42,6 +42,6 @@ class UserController extends Controller
     {
         $user = User::slug($slug)->firstOrFail();
         $user->delete();
-        return redirect()->route('user.index')->with('succes', 'Eliminado');
+        return redirect()->route('user.index')->with('success', 'Eliminado');
     }
 }
