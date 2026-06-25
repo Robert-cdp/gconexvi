@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class ProfileController extends Controller
+class UserSettingsController extends Controller
 {
     public function index(string $slug)
     {
         $user = User::slug($slug)->firstOrFail();
 
-        return view('user.profile', compact('user'));
+        return view('user.settings', compact('user'));
     }
 }

@@ -47,7 +47,7 @@
         </div>
         <div
             class="border-t border-slate-800 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-slate-500">
-            <p>© 2026 Conecta. Todos los derechos reservados.</p>
+            <p>© 2026 {{ config('app.name') }}. Todos los derechos reservados.</p>
             <div class="flex gap-4">
                 <a href="#" class="hover:text-white transition-colors">Privacidad</a>
                 <a href="#" class="hover:text-white transition-colors">Términos</a>
