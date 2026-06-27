@@ -38,6 +38,18 @@ Route::prefix('member')->group(function () {
 
         Route::put('password', [UserSettingsController::class, 'updatePassword'])
             ->name('user.settings.password.update');
+
+        Route::get('avatar', [UserSettingsController::class, 'avatar'])
+            ->name('user.settings.avatar');
+
+        Route::put('avatar', [UserSettingsController::class, 'updateAvatar'])
+            ->name('user.settings.avatar.update');
+
+        Route::get('bio', [UserSettingsController::class, 'bio'])
+            ->name('user.settings.bio');
+
+        Route::put('bio', [UserSettingsController::class, 'updateBio'])
+            ->name('user.settings.bio.update');
     });
 });
 

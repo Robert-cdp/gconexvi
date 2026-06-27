@@ -3,7 +3,7 @@
 
         <button @click="open = !open"
             class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-slate-100 transition-colors">
-            <img src="{{ Auth::user()->avatar_url ?? asset('images/default-avatar.png') }}" alt="{{ Auth::user()->name }}"
+            <img src="{{ auth()->user()->avatar ? Storage::url(auth()->user()->avatar) : asset('images/default-avatar.png') }}" alt="{{ Auth::user()->name }}"
                 class="w-8 h-8 rounded-full object-cover border-2 border-primary-100">
             <span class="hidden sm:inline text-sm font-medium text-slate-700">{{ Auth::user()->name }}</span>
             <svg class="w-4 h-4 text-slate-400 transition-transform duration-200" :class="open ? 'rotate-180' : ''"

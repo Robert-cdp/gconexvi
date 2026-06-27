@@ -19,6 +19,13 @@
                 </div>
 
                 <div class="lg:col-span-2 space-y-6">
+
+                    @if (session('success'))
+                        <div class="mb-4 rounded-xl border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+
                     @yield('content-settings')
                 </div>
             </div>
