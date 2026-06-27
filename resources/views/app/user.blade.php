@@ -12,7 +12,7 @@
             </svg>
         </button>
 
-        <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-150"
+        <div x-show="open" x-cloak @click.away="open = false" x-transition:enter="transition ease-out duration-150"
             x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
             x-transition:leave="transition ease-in duration-100" x-transition:leave-start="opacity-100 scale-100"
             x-transition:leave-end="opacity-0 scale-95"
@@ -23,7 +23,7 @@
                 <p class="text-xs text-slate-500 truncate">{{ Auth::user()->email }}</p>
             </div>
 
-            <a href=""
+            <a href="{{ route('user.profile', Auth::user()->slug) }}"
                 class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-primary-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -31,7 +31,7 @@
                 </svg>
                 Mi perfil
             </a>
-            <a href=""
+            <a href="{{ route('user.settings.general') }}"
                 class="flex items-center gap-3 px-4 py-2.5 text-sm text-slate-700 hover:bg-primary-50 transition-colors">
                 <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

@@ -10,3 +10,7 @@ body {
     transform: translateY(-4px);
     box-shadow: 0 12px 24px -8px rgba(79, 70, 229, 0.15);
 }
+
+[x-cloak] {
+    display: none !important;
+}

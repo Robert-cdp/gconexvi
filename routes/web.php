@@ -18,11 +18,27 @@ Route::resource('services', ServiceController::class);
 
 Route::resource('jobs', EmploymentController::class);
 
-Route::prefix('member')->group( function () {
+Route::prefix('member')->group(function () {
 
-    Route::get('{slug}', [ProfileController::class, 'index'])->name('user.profile');
+    // Perfil público
+    Route::get('{slug}', [ProfileController::class, 'index'])
+        ->name('user.profile');
 
-    Route::get('{slug}/settings', [UserSettingsController::class, 'index'])->name('user.settings');
+    // SOLO USUARIO AUTENTICADO (MI CUENTA)
+    Route::middleware('auth')->prefix('settings')->group(function () {
+
+        Route::get('general', [UserSettingsController::class, 'index'])
+            ->name('user.settings.general');
+
+        Route::put('general', [UserSettingsController::class, 'update'])
+            ->name('user.settings.general.update');
+
+        Route::get('password', [UserSettingsController::class, 'password'])
+            ->name('user.settings.password');
+
+        Route::put('password', [UserSettingsController::class, 'updatePassword'])
+            ->name('user.settings.password.update');
+    });
 });
 
 Route::prefix('conexvi')->group(function () {
@@ -34,7 +50,4 @@ Route::prefix('conexvi')->group(function () {
     Route::resource('categories', CategoryController::class);
 
     Route::resource('roles', RoleController::class);
-
 });
-
-
