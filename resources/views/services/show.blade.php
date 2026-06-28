@@ -21,7 +21,7 @@
                 @include('services.show.description')
 
                 {{-- Preguntas frecuentes  --}}
-                @include('services.show.faq')
+                {{-- @include('services.show.faq') --}}
 
                 {{--  Reseñas --}}
                 @include('services.show.reviews')

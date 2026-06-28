@@ -42,6 +42,11 @@ class Service extends Model
         return $this->morphToMany(Category::class, 'categorizable');
     }
 
+    public function getCategoryAttribute(): ?Category
+    {
+        return $this->categories->first();
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(ServiceImage::class)
