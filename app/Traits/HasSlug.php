@@ -9,32 +9,47 @@ trait HasSlug
     protected static function bootHasSlug()
     {
         static::creating(function ($model) {
-            $model->slug = $model->generateUniqueSlug($model->name);
+
+            $field = $model->slugFrom ?? 'name';
+
+            $model->slug = $model->generateUniqueSlug($model->{$field});
+
         });
 
         static::updating(function ($model) {
-            if ($model->isDirty('name')) {
+
+            $field = $model->slugFrom ?? 'name';
+
+            if ($model->isDirty($field)) {
+
                 $model->slug = $model->generateUniqueSlug(
-                    $model->name,
+                    $model->{$field},
                     $model->id
                 );
+
             }
+
         });
     }
 
-    protected function generateUniqueSlug($name, $ignoreId = null)
+    protected function generateUniqueSlug($value, $ignoreId = null)
     {
-        $slug = Str::slug($name);
+        $slug = Str::slug($value);
+
         $originalSlug = $slug;
+
         $count = 1;
 
         while (
             static::where('slug', $slug)
-            ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
-            ->exists()
+                ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
+                ->exists()
         ) {
+
             $slug = "{$originalSlug}-{$count}";
+
             $count++;
+
         }
 
         return $slug;

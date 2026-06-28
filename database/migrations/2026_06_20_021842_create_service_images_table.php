@@ -12,10 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('service_images', function (Blueprint $table) {
+
             $table->id();
-            $table->foreignId('service_id')->constrained()->onDelete('cascade');
+
+            $table->foreignId('service_id')
+                ->constrained()
+                ->cascadeOnDelete();
+
             $table->string('path');
-            $table->unsignedInteger('order')->default(0);
+
+            $table->boolean('is_primary')
+                ->default(false);
+
+            $table->unsignedInteger('order')
+                ->default(0);
+
             $table->timestamps();
         });
     }

@@ -6,35 +6,69 @@ use App\Models\Services\Service;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Services\Store;
 use App\Http\Requests\Services\Update;
+use App\Models\Categories\Category;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        return view('services.index');
+        $services = Service::all();
+        return view('services.index', compact('services'));
     }
 
     public function create()
     {
-        return view('services.create');
+        $categories = Category::with('children')
+            ->whereNull('parent_id')
+            ->orderBy('name')
+            ->get();
+
+        return view('services.create', compact('categories'));
     }
 
     public function store(Store $request)
     {
-        $service = Service::create($request->validated());
-        return redirect()->route('services.show', $service->slug)->with('success', 'Creado Correctamente.');
+        $service = DB::transaction(function () use ($request) {
+
+            $service = Service::create([
+                ...$request->safe()->except('images'),
+                'user_id' => Auth::id(),
+            ]);
+
+            if ($request->hasFile('images')) {
+
+                foreach ($request->file('images') as $index => $image) {
+
+                    $path = $image->store('services', 'public');
+
+                    $service->images()->create([
+                        'path' => $path,
+                        'order' => $index,
+                        'is_primary' => $index === 0,
+                    ]);
+                }
+            }
+
+            return $service;
+        });
+
+        return redirect()
+            ->route('services.show', $service->slug)
+            ->with('success', 'Servicio creado correctamente.');
     }
 
     public function show(string $slug)
     {
         $service = Service::slug($slug)->firstOrFail();
-        return view('services.show', $service->slug);
+        return view('services.show', compact('service'));
     }
 
     public function edit(string $slug)
     {
         $service = Service::slug($slug)->firstOrFail();
-        return view('services.edit', $service->slug);
+        return view('services.edit', compact('service'));
     }
 
     public function update(Update $request, string $slug)

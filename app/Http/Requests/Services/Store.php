@@ -2,28 +2,75 @@
 
 namespace App\Http\Requests\Services;
 
-use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Store extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, ValidationRule|array<mixed>|string>
-     */
     public function rules(): array
     {
         return [
-            //
+
+            'category_id' => [
+                'required',
+                'exists:categories,id',
+            ],
+
+            'title' => [
+                'required',
+                'string',
+                'max:255',
+            ],
+
+            'description' => [
+                'required',
+                'string',
+                'min:50',
+            ],
+
+            'price' => [
+                'nullable',
+                'numeric',
+                'min:0',
+            ],
+
+            'price_type' => [
+                'required',
+                'in:fixed,hourly,quote',
+            ],
+
+            'delivery_time' => [
+                'required',
+                'in:24h,2d,5d,1w,more,custom',
+            ],
+
+            'revisions' => [
+                'required',
+                'in:0,1,2,3,unlimited',
+            ],
+
+            'status' => [
+                'required',
+                'in:draft,pending',
+            ],
+
+            'images' => [
+                'required',
+                'array',
+                'min:1',
+                'max:5',
+            ],
+
+            'images.*' => [
+                'image',
+                'mimes:jpg,jpeg,png,webp',
+                'max:4096',
+            ],
+
         ];
     }
 }

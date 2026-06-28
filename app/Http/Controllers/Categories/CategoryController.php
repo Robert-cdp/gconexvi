@@ -11,12 +11,18 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('categories.index');
+        $categories = Category::with('parent')
+            ->orderBy('name')
+            ->get();
+
+        return view('categories.index', compact('categories'));
     }
 
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::orderBy('name')->get();
+
+        return view('categories.create', compact('categories'));
     }
 
     public function store(Store $request)
@@ -36,8 +42,12 @@ class CategoryController extends Controller
     public function edit(string $slug)
     {
         $category = Category::slug($slug)->firstOrFail();
-        
-        return view('categories.edit', compact('category'));
+
+        $categories = Category::whereKeyNot($category->id)
+            ->orderBy('name')
+            ->get();
+
+        return view('categories.edit', compact('category', 'categories'));
     }
 
     public function update(Update $request, string $slug)
@@ -46,7 +56,7 @@ class CategoryController extends Controller
 
         $category->update($request->validated());
 
-        return redirect()->route('categories.show', $category->slug)->with('success', 'Actualizado.');
+        return redirect()->route('categories.index')->with('success', 'Actualizado.');
     }
 
     public function destroy(string $slug)

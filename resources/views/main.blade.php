@@ -14,14 +14,18 @@
     <script src="{{ asset('js/tailwind.js') }}"></script>
 </head>
 
-<body class="bg-slate-50 text-slate-800 antialiased">
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased">
 
     @include('app.header')
 
-    @yield('content')
+    <main class="flex-1">
+
+        @yield('content')
+
+    </main>
 
     @include('app.footer')
-    
+
 </body>
 
 </html>

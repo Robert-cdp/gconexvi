@@ -1,6 +1,6 @@
 <div class="lg:col-span-1 space-y-6">
     <div class="bg-white rounded-2xl border border-slate-200 p-5 shadow-sm">
-        <h3 class="font-bold text-slate-800 mb-3">Sobre mí</h3>
+        <h3 class="font-bold text-slate-800 mb-3">Sobre</h3>
         <p class="text-sm text-slate-600 leading-relaxed">
             {{ $user->bio }}
         </p>
