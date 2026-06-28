@@ -9,9 +9,9 @@
     <section class="py-12">
         <div class="max-w-5xl mx-auto px-6">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-                <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('services.update', $service->slug) }}" method="POST" enctype="multipart/form-data">
                     @csrf
-
+                    @method('PUT')
                     <input type="hidden" id="status" name="status" value="{{ old('status', 'pending') }}">
 
                     {{-- Titulo --}}
