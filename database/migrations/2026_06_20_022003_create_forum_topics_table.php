@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('forum_topics', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
             $table->string('title');
             $table->text('content');
             $table->enum('status', ['active', 'closed'])->default('active');

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Reviews\Review;
 use App\Models\Services\Service;
 use App\Traits\HasSlug;
 use Database\Factories\UserFactory;
@@ -59,5 +60,27 @@ class User extends Authenticatable
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);
+    }
+
+    public function averageRating()
+    {
+        return Review::whereHasMorph(
+            'reviewable',
+            [Service::class],
+            function ($query) {
+                $query->where('user_id', $this->id);
+            }
+        )->avg('rating');
+    }
+
+    public function reviewsCount()
+    {
+        return Review::whereHasMorph(
+            'reviewable',
+            [Service::class],
+            function ($query) {
+                $query->where('user_id', $this->id);
+            }
+        )->count();
     }
 }

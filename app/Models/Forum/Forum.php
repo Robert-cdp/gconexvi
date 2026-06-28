@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Models\Employment;
+namespace App\Models\Forum;
 
-use App\Traits\HasSlug;
 use App\Models\Categories\Category;
 use Illuminate\Database\Eloquent\Model;
 
-class Employment extends Model
+class Forum extends Model
 {
-    use HasSlug;
-
     protected $table;
 
     protected $fillable = [];

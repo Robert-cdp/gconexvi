@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 use App\Models\Categories\Category;
+use App\Models\Reviews\Review;
 use App\Models\User;
 use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
@@ -15,12 +16,11 @@ class Service extends Model
     use HasSlug;
 
     protected string $slugFrom = 'title';
-    
+
     protected $table = "services";
 
     protected $fillable = [
         'user_id',
-        'category_id',
         'title',
         'slug',
         'description',
@@ -37,9 +37,9 @@ class Service extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function category(): BelongsTo
+    public function categories()
     {
-        return $this->belongsTo(Category::class);
+        return $this->morphToMany(Category::class, 'categorizable');
     }
 
     public function images(): HasMany
@@ -52,5 +52,11 @@ class Service extends Model
     {
         return $this->hasOne(ServiceImage::class)
             ->where('is_primary', true);
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable')
+            ->latest();
     }
 }

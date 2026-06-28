@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('employment', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade'); // publicador
-            $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('title');
             $table->text('description');
             $table->enum('type', ['remote', 'hybrid', 'onsite']);

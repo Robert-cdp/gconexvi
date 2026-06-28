@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Models\Employment;
+namespace App\Models\Products;
 
-use App\Traits\HasSlug;
 use App\Models\Categories\Category;
+use App\Traits\HasSlug;
 use Illuminate\Database\Eloquent\Model;
 
-class Employment extends Model
+class Product extends Model
 {
     use HasSlug;
 
-    protected $table;
+    protected $table = "products";
 
     protected $fillable = [];
 

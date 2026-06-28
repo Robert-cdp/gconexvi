@@ -4,11 +4,11 @@
      <div class="flex-1">
          <p class="font-semibold text-slate-800">{{ $service->user->name }}</p>
          <p class="text-sm text-slate-500">Laravel Developer · 5 años exp.</p>
-         <div class="flex items-center gap-1 text-yellow-500 text-sm mt-0.5">⭐ 4.9
-             <span class="text-slate-400 font-normal">(128 servicios)</span>
+         <div class="flex items-center gap-1 text-yellow-500 text-sm mt-0.5">⭐ {{ number_format($service->user->averageRating(), 1) }}
+             <span class="text-slate-400 font-normal">({{ $service->user->reviewsCount() }} reseñas)</span>
          </div>
      </div>
-     <a href="perfil.html"
-         class="px-4 py-2 text-sm font-semibold text-primary-700 border border-primary-200 rounded-lg hover:bg-primary-50 transition-colors">Ver
-         perfil</a>
+     <a href="{{ route('user.profile', $service->user->slug) }}" class="px-4 py-2 text-sm font-semibold text-primary-700 border border-primary-200 rounded-lg hover:bg-primary-50 transition-colors">Ver
+         perfil
+        </a>
  </div>

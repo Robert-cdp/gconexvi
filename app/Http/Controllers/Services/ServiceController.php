@@ -12,10 +12,18 @@ use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
-    public function index()
+    public function index(?Category $category = null)
     {
-        $services = Service::all();
-        return view('services.index', compact('services'));
+        $services = Service::query()
+            ->when($category, function ($query) use ($category) {
+                $query->whereHas('categories', function ($q) use ($category) {
+                    $q->where('categories.id', $category->id);
+                });
+            })
+            ->latest()
+            ->get();
+
+        return view('services.index', compact('services', 'category'));
     }
 
     public function create()
@@ -30,29 +38,26 @@ class ServiceController extends Controller
 
     public function store(Store $request)
     {
-        $service = DB::transaction(function () use ($request) {
+        $service = Service::create([
+            ...$request->safe()->except('images', 'category_id'),
+            'user_id' => Auth::id(),
+        ]);
 
-            $service = Service::create([
-                ...$request->safe()->except('images'),
-                'user_id' => Auth::id(),
-            ]);
+        $service->categories()->attach($request->category_id);
 
-            if ($request->hasFile('images')) {
+        if ($request->hasFile('images')) {
 
-                foreach ($request->file('images') as $index => $image) {
+            foreach ($request->file('images') as $index => $image) {
 
-                    $path = $image->store('services', 'public');
+                $path = $image->store('services', 'public');
 
-                    $service->images()->create([
-                        'path' => $path,
-                        'order' => $index,
-                        'is_primary' => $index === 0,
-                    ]);
-                }
+                $service->images()->create([
+                    'path' => $path,
+                    'order' => $index,
+                    'is_primary' => $index === 0,
+                ]);
             }
-
-            return $service;
-        });
+        }
 
         return redirect()
             ->route('services.show', $service->slug)

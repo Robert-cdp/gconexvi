@@ -1,5 +1,5 @@
 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-5">
-    <h3 class="font-bold text-slate-800 mb-3">🔗 Servicios relacionados</h3>
+    <h3 class="font-bold text-slate-800 mb-3">Servicios relacionados</h3>
     <div class="space-y-3">
         <a href="#" class="flex items-center gap-3 group">
             <img src="https://picsum.photos/80/80?25" class="w-12 h-12 rounded-lg object-cover" alt="Frontend">

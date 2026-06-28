@@ -23,7 +23,7 @@
 
                     </div>
 
-                    @include('services.index.pagination')
+                    {{-- @include('services.index.pagination') --}}
                 </div>
 
             </div>

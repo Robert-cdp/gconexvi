@@ -18,6 +18,16 @@ return new class extends Migration
             $table->foreignId('parent_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->timestamps();
         });
+
+        Schema::create('categorizables', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->morphs('categorizable');
+            $table->primary([
+                'category_id',
+                'categorizable_id',
+                'categorizable_type'
+            ]);
+        });
     }
 
     /**
@@ -25,6 +35,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('categorizables');
         Schema::dropIfExists('categories');
     }
 };
