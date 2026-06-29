@@ -1,7 +1,7 @@
 @extends('main')
 
 @section('title', 'Comunidad')
-    
+
 @section('content')
 
     @include('forum.index.head')
@@ -17,7 +17,9 @@
                 <div class="grid sm:grid-cols-2 gap-5">
                     @include('forum.index.topics')
                 </div>
-                
+                <div class="mt-8">
+                    {{ $topics->links('components.pagination') }}
+                </div>
             </div>
         </div>
     </section>

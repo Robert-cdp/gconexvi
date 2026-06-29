@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Forum;
 
 use App\Models\User;
-use App\Models\Forum\Forum;
+use App\Models\Forum\Topic;
 use App\Models\Categories\Category;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forum\StoreTopic;
 use App\Http\Requests\Forum\UpdateTopic;
-use App\Models\Forum\Topic;
 
 class TopicController extends Controller
 {
@@ -18,14 +17,15 @@ class TopicController extends Controller
         $topics = Topic::with([
             'user',
             'categories',
-            'replies',
-        ])->latest()->get();
+        ])
+            ->withCount('replies')
+            ->latest()
+            ->paginate(8);
 
         $categories = Category::has('forums', '>=', 10)
             ->withCount('forums')
             ->orderByDesc('forums_count')
             ->get();
-
 
         $activeUsers = User::withCount([
             'forumTopics',
@@ -68,11 +68,20 @@ class TopicController extends Controller
 
     public function show(string $slug)
     {
-        $topic = Topic::slug($slug)->firstOrFail();
+        $topic = Topic::with([
+            'user',
+            'categories',
+        ])
+            ->where('slug', $slug)
+            ->firstOrFail();
 
-        return view('forum.show', compact('topic'));
+        $replies = $topic->replies()
+            ->with('user')
+            ->latest()
+            ->paginate(8);
+
+        return view('forum.show', compact('topic', 'replies'));
     }
-
     public function edit(string $slug)
     {
         $topic = Topic::slug($slug)->firstOrFail();

@@ -13,11 +13,12 @@
             @include('forum.show.replies')
         </div>
 
+
         <div class="mt-8 bg-white rounded-2xl border border-slate-200 shadow-sm p-5 sm:p-6" x-data="respuestaForm()">
-            <form action="{{ route('reply.store', $topic) }}" method="POST" >
+            <form action="{{ route('reply.store', $topic) }}" method="POST">
                 @csrf
                 <x-rich-text-editor name="content" label="Tu Respuesta" placeholder="Escribe aquí..." :value="old('content', $post->content ?? '')"
-                        :required="true" height="300px" />
+                    :required="true" height="300px" />
 
                 <div class="flex justify-end gap-3 mt-3">
                     <button type="submit"

@@ -22,7 +22,7 @@
                     </span>
 
                     <span class="flex items-center gap-1">
-                        {{ $topic->replies->count() }} respuestas
+                        {{ $topic->replies_count }} respuestas
                     </span>
 
                     <span class="flex items-center gap-1">

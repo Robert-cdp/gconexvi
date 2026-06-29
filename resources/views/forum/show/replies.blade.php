@@ -1,5 +1,5 @@
 <div class="space-y-6">
-    @forelse ($topic->replies as $item)
+    @forelse ($replies as $item)
         <article class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
             {{-- Encabezado --}}
@@ -33,7 +33,7 @@
 
                 <span
                     class="text-xs font-medium text-slate-500 bg-white border border-slate-200 rounded-full px-3 py-1">
-                    Respuesta #{{ $loop->iteration }}
+                    Respuesta #{{ $replies->firstItem() + $loop->index }}
                 </span>
             </header>
 
@@ -56,4 +56,10 @@
             </p>
         </div>
     @endforelse
+
+    @if ($replies->hasPages())
+        <div class="mt-8">
+            {{ $replies->links('components.pagination') }}
+        </div>
+    @endif
 </div>
