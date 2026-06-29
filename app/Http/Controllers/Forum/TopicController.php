@@ -82,6 +82,7 @@ class TopicController extends Controller
 
         return view('forum.show', compact('topic', 'replies'));
     }
+    
     public function edit(string $slug)
     {
         $topic = Topic::slug($slug)->firstOrFail();
