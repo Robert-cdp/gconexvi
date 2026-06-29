@@ -2,15 +2,15 @@
 
 namespace App\Models\Forum;
 
-use App\Models\Categories\Category;
 use App\Models\User;
 use App\Traits\HasSlug;
+use App\Models\Categories\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
-class Forum extends Model
+class Topic extends Model
 {
     use HasSlug;
 

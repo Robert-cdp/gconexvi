@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Categories\CategoryController;
 use App\Http\Controllers\Employment\EmploymentController;
+use App\Http\Controllers\Forum\ReplyController;
+use App\Http\Controllers\Forum\TopicController;
 use App\Http\Controllers\Home\HomeController;
 use App\Http\Controllers\Services\ServiceController;
 use App\Http\Controllers\User\ProfileController;
@@ -17,6 +19,10 @@ Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::resource('services', ServiceController::class);
 
 Route::resource('jobs', EmploymentController::class);
+
+Route::resource('community', TopicController::class);
+
+Route::post('community/{forum:slug}/reply', [ReplyController::class, 'store'])->name('reply.store');
 
 Route::prefix('member')->group(function () {
 

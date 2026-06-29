@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Forum\Forum;
+use App\Models\Forum\Reply;
 use App\Models\Reviews\Review;
 use App\Models\Services\Service;
 use App\Traits\HasSlug;
@@ -82,5 +84,15 @@ class User extends Authenticatable
                 $query->where('user_id', $this->id);
             }
         )->count();
+    }
+
+    public function forumTopics(): HasMany
+    {
+        return $this->hasMany(Forum::class);
+    }
+
+    public function forumReplies(): HasMany
+    {
+        return $this->hasMany(Reply::class);
     }
 }
