@@ -10,9 +10,20 @@ class Employment extends Model
 {
     use HasSlug;
 
-    protected $table;
+    protected $table = "employments";
 
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id',
+        'title',
+        'slug',
+        'description',
+        'type',
+        'salary_min',
+        'salary_max',
+        'location',
+        'deadline',
+        'status'
+    ];
 
     public function categories()
     {
