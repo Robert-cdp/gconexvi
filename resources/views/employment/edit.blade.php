@@ -6,32 +6,30 @@
 
     @include('employment.edit.head')
 
-    <section class="py-10">
-        <div class="max-w-3xl mx-auto px-6">
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8" x-data="formularioOferta()">
-                <form action="{{ route('employments.update', $employment) }}" method="POST" class="space-y-6">
-                    @csrf
+    <div class="max-w-7xl mx-auto py-10 px-6">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8" x-data="formularioOferta()">
+            <form action="{{ route('employments.update', $employment) }}" method="POST" class="space-y-6">
+                @csrf
 
-                    @method('PUT')
+                @method('PUT')
 
-                    @include('employment.edit.form-title')
+                @include('employment.edit.form-title')
 
-                    @include('employment.edit.form-category')
+                @include('employment.edit.form-category')
 
-                    @include('employment.edit.form-location-type')
+                @include('employment.edit.form-location-type')
 
-                    @include('employment.edit.form-salary')
+                @include('employment.edit.form-salary')
 
-                    <x-rich-text-editor name="description" label="Descripcion" placeholder="Escribe aquí..." :value="old('content', $employment->description ?? '')"
-                        :required="true" height="300px" />
+                <x-rich-text-editor name="description" label="Descripcion" placeholder="Escribe aquí..." :value="old('content', $employment->description ?? '')"
+                    :required="true" height="300px" />
 
-                    @include('employment.edit.form-skills')
+                @include('employment.edit.form-skills')
 
-                    @include('employment.edit.form-alert')
+                @include('employment.edit.form-alert')
 
-                    @include('employment.edit.form-actions')
-                </form>
-            </div>
+                @include('employment.edit.form-actions')
+            </form>
         </div>
-    </section>
+    </div>
 @endsection

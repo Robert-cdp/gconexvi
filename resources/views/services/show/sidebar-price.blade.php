@@ -18,14 +18,23 @@
     </p>
 
     <div class="space-y-3">
-        <a href="" class="flex items-center justify-center w-full py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 active:scale-[.98] transition-all shadow-lg shadow-primary-200">
+        <a href=""
+            class="flex items-center justify-center w-full py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 active:scale-[.98] transition-all shadow-lg shadow-primary-200">
             Contratar ahora
         </a>
 
         @can('update', $service)
-            <a href="{{ route('services.edit', $service->slug) }}" class="flex items-center justify-center w-full py-3 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 active:scale-[.98] transition-all">
+            <a href="{{ route('services.edit', $service->slug) }}"
+                class="flex items-center justify-center w-full py-3 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 active:scale-[.98] transition-all">
                 Editar servicio
             </a>
         @endcan
+        @can('create', [App\Models\Review::class, $service])
+            <a href="{{ route('services.reviews.create', $service) }}"
+                class="flex items-center justify-center w-full py-3 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 active:scale-[.98] transition-all">
+                Dejar Review
+            </a>
+        @endcan
+
     </div>
 </div>

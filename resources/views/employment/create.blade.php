@@ -7,7 +7,7 @@
     @include('employment.create.head')
 
     <section class="py-10">
-        <div class="max-w-3xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-6">
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8" x-data="formularioOferta()">
                 <form action="{{ route('employments.store') }}" method="POST" class="space-y-6">
                     @csrf

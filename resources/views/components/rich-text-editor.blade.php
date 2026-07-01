@@ -9,7 +9,7 @@
 
 <div x-data="richTextEditor(@js($value))"
      x-on:keydown.escape.window="handleEscape"
-     class="w-full">
+     class="w-full mb-6">
 
     @if($label)
         <label for="{{ $name }}_editor"

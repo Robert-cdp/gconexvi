@@ -1,51 +1,43 @@
 @extends('main')
 
-@section('title', 'Crear Servicio')
+@section('title', 'Editar Servicio')
 
 @section('content')
 
     @include('services.edit.header')
 
-    <section class="py-12">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
-                <form action="{{ route('services.update', $service->slug) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <input type="hidden" id="status" name="status" value="{{ old('status', 'pending') }}">
+    <div class="max-w-7xl mx-auto px-6 py-12">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
+            <form action="{{ route('services.update', $service->slug) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
 
-                    {{-- Titulo --}}
-                    @include('services.edit.form-title')
+                <input type="hidden" id="status" name="status" value="{{ old('status', 'pending') }}">
 
-                    {{-- Categoría --}}
-                    @include('services.edit.form-category')
+                {{-- Titulo --}}
+                @include('services.edit.form-title')
 
-                    {{-- Descripción --}}
-                    @include('services.edit.form-description')
+                {{-- Categoría --}}
+                @include('services.edit.form-category')
+                <x-rich-text-editor name="description" label="Descripción" placeholder="Escribe aquí..." :value="old('description', $service->description)" :required="true" height="300px" />
+                
+                {{-- Precio --}}
+                @include('services.edit.form-price')
 
-                    {{-- Precio --}}
-                    @include('services.edit.form-price')
+                {{-- Imagen --}}
+                @include('services.edit.form-image')
 
-                    {{-- Imagen --}}
-                    @include('services.edit.form-image')
+                {{-- Entrega / Revisiones --}}
+                @include('services.edit.form-delivery')
 
-                    {{-- Entrega / Revisiones --}}
-                    @include('services.edit.form-delivery')
+                {{-- Nota --}}
+                @include('services.edit.note')
 
-                    {{-- Nota --}}
-                    <div class="mb-8 rounded-xl border border-primary-100 bg-primary-50 p-5">
-                        <p class="text-sm text-primary-800">
-                            Tu servicio será revisado por nuestro equipo antes de ser publicado.
-                            Asegúrate de que la información sea clara, verídica y cumpla con las políticas de la plataforma.
-                        </p>
-                    </div>
+                {{-- Botones --}}
+                @include('services.edit.form-buttons')
 
-                    {{-- Botones --}}
-                    @include('services.edit.form-buttons')
+            </form>
 
-                </form>
-
-            </div>
         </div>
-    </section>
+    </div>
 @endsection

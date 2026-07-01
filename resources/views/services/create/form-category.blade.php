@@ -12,7 +12,7 @@
                             border-slate-200 focus:ring-primary-100 focus:border-primary-300
                         @enderror">
 
-        <option value="">Selecciona una categoría</option>
+        <option selected disabled>Selecciona una categoría</option>
 
         @foreach ($categories as $parent)
             @if ($parent->children->count())

@@ -6,8 +6,8 @@
 
     @include('services.create.header')
 
-    <section class="py-12">
-        <div class="max-w-5xl mx-auto px-6">
+    <section class="max-w-7xl mx-auto px-6 py-10">
+
             <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8">
                 <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
@@ -21,7 +21,8 @@
                     @include('services.create.form-category')
 
                     {{-- Descripción --}}
-                    @include('services.create.form-description')
+                    <x-rich-text-editor name="description" label="Contenido" placeholder="Escribe aquí..." :value="old('description')"
+                        :required="true" height="300px" />
 
                     {{-- Precio --}}
                     @include('services.create.form-price')
@@ -33,12 +34,7 @@
                     @include('services.create.form-delivery')
 
                     {{-- Nota --}}
-                    <div class="mb-8 rounded-xl border border-primary-100 bg-primary-50 p-5">
-                        <p class="text-sm text-primary-800">
-                            Tu servicio será revisado por nuestro equipo antes de ser publicado.
-                            Asegúrate de que la información sea clara, verídica y cumpla con las políticas de la plataforma.
-                        </p>
-                    </div>
+                    @include('services.create.note')
 
                     {{-- Botones --}}
                     @include('services.create.form-buttons')
@@ -46,6 +42,5 @@
                 </form>
 
             </div>
-        </div>
     </section>
 @endsection

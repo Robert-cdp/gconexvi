@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers\Services;
 
-use App\Models\Services\Service;
 use App\Http\Controllers\Controller;
+
+// Requests
 use App\Http\Requests\Services\Store;
 use App\Http\Requests\Services\Update;
+
+// Models
 use App\Models\Categories\Category;
+use App\Models\Services\Service;
+
+// Facades
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ServiceController extends Controller
@@ -22,7 +27,7 @@ class ServiceController extends Controller
                 });
             })
             ->latest()
-            ->get();
+            ->paginate(8);
 
         return view('services.index', compact('services', 'category'));
     }
