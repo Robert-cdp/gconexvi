@@ -13,7 +13,7 @@
                 {{-- <!-- Sidebar de filtros --> --}}
                 {{-- @include('employment.index.sidebar') --}}
 
-                <div class="lg:col-span-3">
+                <div class="lg:col-span-4">
                     {{-- <!-- Ordenar + resultados --> --}}
                     {{-- @include('employment.index.order') --}}
                     <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">

@@ -10,6 +10,8 @@ class Employment extends Model
 {
     use HasSlug;
 
+    protected string $slugFrom = 'title';
+    
     protected $table = "employments";
 
     protected $fillable = [
