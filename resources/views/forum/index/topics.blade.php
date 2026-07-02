@@ -1,7 +1,7 @@
 @forelse ($topics as $topic)
     <div class="bg-white rounded-2xl border border-slate-200 p-5 card-hover shadow-sm">
         <div class="flex items-start gap-4">
-            <img src="{{ Storage::url($topic->user->avatar) }}"
+            <img src="{{ Storage::url($topic->user->avatar ?? 'images/default-avatar.webp' ) }}"
                 class="w-11 h-11 rounded-full ring-2 ring-primary-100 shrink-0"
                 alt="{{ $topic->user->name }}">
 

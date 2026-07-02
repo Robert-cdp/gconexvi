@@ -6,7 +6,7 @@
         <div class="p-4">
             <h3 class="font-bold text-slate-800">{{ $service->title }}</h3>
             <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-                {{ $service->description }}
+                {{ strip_tags($service->description) }}
             </p>
             <div class="mt-3 flex items-center justify-between">
                 <span class="font-bold text-primary-700">{{ $service->price }} usd</span>

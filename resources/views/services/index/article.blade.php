@@ -12,7 +12,7 @@
         </div>
         <div class="p-5 flex flex-col flex-1">
             <div class="flex items-center gap-3 mb-3">
-                <img src="{{ Storage::url($service->user->avatar) }}"
+                <img src="{{ $service->user->avatar ? Storage::url($service->user->avatar) : Storage::url('images/default-avatar.webp') }}"
                     class="w-10 h-10 rounded-full ring-2 ring-primary-100" alt="{{ $service->user->name }}">
                 <div>
                     <p class="font-semibold text-slate-800 text-sm">{{ $service->user->name }}</p>
@@ -21,7 +21,7 @@
             </div>
             <h3 class="font-bold text-slate-800">{{ $service->title }}</h3>
             <p class="text-sm text-slate-500 mt-1 line-clamp-2 flex-1">
-                {{ $service->description }}
+                {{ strip_tags($service->description) }}
             </p>
             {{-- <div class="mt-4 flex items-center justify-between">
             <span class="flex items-center gap-1 text-yellow-500 font-semibold text-sm">⭐ 4.9 <span

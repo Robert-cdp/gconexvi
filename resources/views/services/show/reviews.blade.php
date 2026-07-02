@@ -8,7 +8,8 @@
         @forelse($service->reviews as $review)
             <div class="flex items-start gap-3 pb-4 border-b border-slate-100">
 
-                <img src="{{ $review->user->profile_photo_url }}" class="w-10 h-10 rounded-full" alt="{{ $review->user->name }}">
+                <img src="{{ Storage::url($review->user->avatar ?? 'images/default-avatar.webp') }}"
+                    class="w-10 h-10 rounded-full" alt="{{ $review->user->name }}">
 
                 <div class="flex-1">
 

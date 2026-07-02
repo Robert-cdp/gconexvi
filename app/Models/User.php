@@ -86,6 +86,18 @@ class User extends Authenticatable
         )->count();
     }
 
+    public function reviewsReceived()
+    {
+        return Review::with(['user', 'reviewable'])
+            ->whereHasMorph(
+                'reviewable',
+                [Service::class],
+                fn($query) => $query->where('user_id', $this->id)
+            )
+            ->latest()
+            ->paginate(2);
+    }
+
     public function forumTopics(): HasMany
     {
         return $this->hasMany(Forum::class);

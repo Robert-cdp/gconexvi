@@ -45,7 +45,7 @@
         <div class="space-y-3">
             @foreach ($activeUsers as $user)
                 <div class="flex items-center gap-3">
-                    <img src="{{ Storage::url($user->avatar) }}" class="w-9 h-9 rounded-full ring-2 ring-primary-100"
+                    <img src="{{ Storage::url($user->avatar ??  'images/default-avatar.webp') }}" class="w-9 h-9 rounded-full ring-2 ring-primary-100"
                         alt="{{ $user->name }}">
 
                     <div class="flex-1 min-w-0">
