@@ -4,6 +4,8 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Models\Chat\Conversation;
+use App\Models\Chat\Message;
 use App\Models\Forum\Forum;
 use App\Models\Forum\Reply;
 use App\Models\Reviews\Review;
@@ -106,5 +108,20 @@ class User extends Authenticatable
     public function forumReplies(): HasMany
     {
         return $this->hasMany(Reply::class);
+    }
+
+    public function conversations()
+    {
+        return $this->hasMany(Conversation::class);
+    }
+
+    public function ownedConversations()
+    {
+        return $this->hasMany(Conversation::class, 'owner_id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 }

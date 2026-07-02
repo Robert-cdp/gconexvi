@@ -3,6 +3,7 @@
 namespace App\Models\Services;
 
 use App\Models\Categories\Category;
+use App\Models\Chat\Conversation;
 use App\Models\Reviews\Review;
 use App\Models\User;
 use App\Traits\HasSlug;
@@ -63,5 +64,10 @@ class Service extends Model
     {
         return $this->morphMany(Review::class, 'reviewable')
             ->latest();
+    }
+
+    public function conversations()
+    {
+        return $this->morphMany(Conversation::class, 'conversationable');
     }
 }

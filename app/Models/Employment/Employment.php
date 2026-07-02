@@ -4,6 +4,7 @@ namespace App\Models\Employment;
 
 use App\Traits\HasSlug;
 use App\Models\Categories\Category;
+use App\Models\Chat\Conversation;
 use Illuminate\Database\Eloquent\Model;
 
 class Employment extends Model
@@ -11,7 +12,7 @@ class Employment extends Model
     use HasSlug;
 
     protected string $slugFrom = 'title';
-    
+
     protected $table = "employments";
 
     protected $fillable = [
@@ -30,5 +31,10 @@ class Employment extends Model
     public function categories()
     {
         return $this->morphToMany(Category::class, 'categorizable');
+    }
+
+    public function conversations()
+    {
+        return $this->morphMany(Conversation::class, 'conversationable');
     }
 }
