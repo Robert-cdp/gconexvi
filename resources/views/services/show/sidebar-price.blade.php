@@ -18,10 +18,19 @@
     </p>
 
     <div class="space-y-3">
-        <a href=""
-            class="flex items-center justify-center w-full py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 active:scale-[.98] transition-all shadow-lg shadow-primary-200">
-            Contratar ahora
-        </a>
+        @can('create', [App\Models\Conversation::class, $service])
+            <form action="{{ route('chat.conversations.store') }}" method="POST">
+                @csrf
+
+                <input type="hidden" name="type" value="service">
+                <input type="hidden" name="id" value="{{ $service->id }}">
+
+                <button
+                    class="flex items-center justify-center w-full py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 active:scale-[.98] transition-all shadow-lg shadow-primary-200">
+                    Contactar
+                </button>
+            </form>
+        @endcan
 
         @can('update', $service)
             <a href="{{ route('services.edit', $service->slug) }}"

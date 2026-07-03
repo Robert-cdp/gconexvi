@@ -5,7 +5,7 @@
             {{-- Encabezado --}}
             <header class="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-slate-50">
                 <div class="flex items-center gap-4">
-                    <img src="{{ Storage::url($item->user->avatar) }}"
+                    <img src="{{ Storage::url($item->user->avatar ?? 'images/default-avatar.webp') }}"
                         alt="{{ $item->user->name }}"
                         class="w-12 h-12 rounded-full object-cover ring-2 ring-primary-100">
 

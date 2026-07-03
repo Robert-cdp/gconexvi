@@ -4,7 +4,7 @@
     <header class="px-6 py-5 bg-slate-50 border-b border-slate-200">
         <div class="flex items-start gap-4">
 
-            <img src="{{ Storage::url($topic->user->avatar) }}" alt="{{ $topic->user->name }}"
+            <img src="{{ Storage::url($topic->user->avatar ?? 'images/default-avatar.webp') }}" alt="{{ $topic->user->name }}"
                 class="w-14 h-14 rounded-full object-cover ring-2 ring-primary-100 shrink-0">
 
             <div class="flex-1 min-w-0">

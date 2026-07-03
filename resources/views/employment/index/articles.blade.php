@@ -37,7 +37,7 @@
 
             {{-- Descripción --}}
             <p class="mt-4 text-sm leading-6 text-slate-600 line-clamp-3 flex-1">
-                {{ strip_tags($employment->description) }}
+                {!! strip_tags($employment->description) !!}
             </p>
 
             {{-- Información --}}

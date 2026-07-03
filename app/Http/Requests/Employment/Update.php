@@ -26,8 +26,8 @@ class Update extends FormRequest
 
             'location' => ['nullable', 'string', 'max:255'],
 
-            'categories' => ['required', 'array', 'min:1'],
-            'categories.*' => ['exists:categories,id'],
+            'category_id' => ['required'],
+            'category_id.*' => ['exists:categories,id'],
         ];
     }
 }
