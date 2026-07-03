@@ -8,7 +8,7 @@
         @include('home.hero')
 
         {{-- <!-- ========== ESTADÍSTICAS ========== --> --}}
-        @include('home.statistics')
+        {{-- @include('home.statistics') --}}
 
         {{-- <!-- ========== SERVICIOS DESTACADOS ========== --> --}}
         @include('home.services')
@@ -20,7 +20,7 @@
         @include('home.forum')
 
         {{-- <!-- ========== MARKETPLACE P2P ========== --> --}}
-        @include('home.p2p')
+        {{-- @include('home.p2p') --}}
 
         {{-- <!-- ========== CTA FINAL ========== --> --}}
         @include('home.cta')

@@ -18,11 +18,9 @@
             <div>
                 <h4 class="text-white font-semibold mb-4">Explorar</h4>
                 <ul class="space-y-2 text-sm">
-                    <li><a href="servicios.html" class="hover:text-white transition-colors">Servicios</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Trabajos</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Comunidad</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Marketplace P2P</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Profesionales</a></li>
+                    <li><a href="{{ route('services.index') }}" class="hover:text-white transition-colors">Servicios</a></li>
+                    <li><a href="{{ route('employments.index') }}" class="hover:text-white transition-colors">Trabajos</a></li>
+                    <li><a href="{{ route('community.index') }}" class="hover:text-white transition-colors">Comunidad</a></li>
                 </ul>
             </div>
             <div>
