@@ -3,26 +3,26 @@
 @section('title', 'Inicio')
 
 @section('content')
-    <main>
-        {{-- <!-- ========== HERO ========== --> --}}
-        @include('home.hero')
 
-        {{-- <!-- ========== ESTADÍSTICAS ========== --> --}}
-        {{-- @include('home.statistics') --}}
+    {{-- <!-- ========== HERO ========== --> --}}
+    @include('home.hero')
 
-        {{-- <!-- ========== SERVICIOS DESTACADOS ========== --> --}}
-        @include('home.services')
+    {{-- <!-- ========== ESTADÍSTICAS ========== --> --}}
+    {{-- @include('home.statistics') --}}
 
-        {{-- <!-- ========== EMPLEOS RECIENTES ========== --> --}}
-        @include('home.employment')
+    {{-- <!-- ========== SERVICIOS DESTACADOS ========== --> --}}
+    @include('home.services')
 
-        {{-- <!-- ========== FORO ========== --> --}}
-        @include('home.forum')
+    {{-- <!-- ========== EMPLEOS RECIENTES ========== --> --}}
+    @include('home.employment')
 
-        {{-- <!-- ========== MARKETPLACE P2P ========== --> --}}
-        {{-- @include('home.p2p') --}}
+    {{-- <!-- ========== FORO ========== --> --}}
+    @include('home.forum')
 
-        {{-- <!-- ========== CTA FINAL ========== --> --}}
-        @include('home.cta')
-    </main>
+    {{-- <!-- ========== MARKETPLACE P2P ========== --> --}}
+    {{-- @include('home.p2p') --}}
+
+    {{-- <!-- ========== CTA FINAL ========== --> --}}
+    @include('home.cta')
+
 @endsection
