@@ -9,21 +9,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @stack('scripts')
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @stack('styles')
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-68C9R29TDD"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-68C9R29TDD');
-    </script>
+    
+    @if (app()->environment('production'))
+        @include('app.google')
+    @endif
+    
 </head>
 
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased">
@@ -36,6 +27,7 @@
 
     @include('app.footer')
 
+    @stack('scripts')
 </body>
 
 </html>

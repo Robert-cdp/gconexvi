@@ -17,7 +17,7 @@
                     <a href="{{ route('services.index') }}" class="px-6 py-3.5 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-lg shadow-primary-200 transition-all">
                         Ver Servicios
                     </a>
-                    <a href="" class="px-6 py-3.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-primary-300 hover:text-primary-600 hover:bg-white transition-all">
+                    <a href="{{ route('community.index') }}" class="px-6 py-3.5 border-2 border-slate-300 text-slate-700 font-semibold rounded-xl hover:border-primary-300 hover:text-primary-600 hover:bg-white transition-all">
                         Ver Comunidad
                     </a>
                 </div>
