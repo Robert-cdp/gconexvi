@@ -38,12 +38,12 @@ class EmploymentController extends Controller
     public function store(Store $request)
     {
         $employment = Employment::create([
-            ...$request->safe()->except('categories'),
-            'user_id' => Auth::user()->id,
+            ...$request->safe()->except('category_id'),
+            'user_id' => Auth::id(),
             'status' => 'open',
         ]);
 
-        $employment->categories()->sync($request->categories);
+        $employment->categories()->sync([$request->validated('category_id')]);
 
         return redirect()->route('employments.show', $employment->slug)->with('success', 'Creado correctamente.');
     }
@@ -54,6 +54,7 @@ class EmploymentController extends Controller
 
         $similarEmployments = Employment::query()
             ->where('id', '!=', $employment->id)
+            ->where('status', 'open')
             ->whereHas('categories', function ($query) use ($employment) {
                 $query->whereIn(
                     'categories.id',
@@ -63,7 +64,7 @@ class EmploymentController extends Controller
             ->latest()
             ->take(5)
             ->get();
-
+            
         return view('employment.show', compact('employment', 'similarEmployments'));
     }
 
