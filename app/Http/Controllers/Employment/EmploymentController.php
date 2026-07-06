@@ -27,7 +27,8 @@ class EmploymentController extends Controller
 
     public function create()
     {
-        $categories = Category::with('children')
+        $categories = Category::forContext('employments')
+            ->with('children')
             ->whereNull('parent_id')
             ->orderBy('name')
             ->get();
@@ -76,7 +77,8 @@ class EmploymentController extends Controller
 
         $this->authorize('update', $employment);
 
-        $categories = Category::with('children')
+        $categories = Category::forContext('employments')
+            ->with('children')
             ->whereNull('parent_id')
             ->orderBy('name')
             ->get();

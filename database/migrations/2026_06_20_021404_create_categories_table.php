@@ -28,6 +28,13 @@ return new class extends Migration
                 'categorizable_type'
             ]);
         });
+
+        Schema::create('category_contexts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+            $table->string('context')->index();
+            $table->unique(['category_id', 'context']);
+        });
     }
 
     /**
@@ -35,6 +42,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('category_contexts');
         Schema::dropIfExists('categorizables');
         Schema::dropIfExists('categories');
     }

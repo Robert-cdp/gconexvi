@@ -34,11 +34,9 @@ class ServiceController extends Controller
 
     public function create()
     {
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
+        $categories = Category::treeForContext('services')
             ->orderBy('name')
             ->get();
-
         return view('services.create', compact('categories'));
     }
 
@@ -82,8 +80,7 @@ class ServiceController extends Controller
 
         $this->authorize('update', $service);
 
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
+        $categories = Category::treeForContext('services')
             ->orderBy('name')
             ->get();
 

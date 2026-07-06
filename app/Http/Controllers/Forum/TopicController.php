@@ -22,9 +22,10 @@ class TopicController extends Controller
             ->latest()
             ->paginate(8);
 
-        $categories = Category::has('forums', '>=', 10)
-            ->withCount('forums')
-            ->orderByDesc('forums_count')
+        $categories = Category::forContext('community')
+            ->with('children')
+            ->whereNull('parent_id')
+            ->orderBy('name')
             ->get();
 
         $activeUsers = User::withCount([
@@ -44,8 +45,7 @@ class TopicController extends Controller
 
     public function create()
     {
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
+        $categories = Category::treeForContext('community')
             ->orderBy('name')
             ->get();
 
@@ -82,15 +82,14 @@ class TopicController extends Controller
 
         return view('forum.show', compact('topic', 'replies'));
     }
-    
+
     public function edit(string $slug)
     {
         $topic = Topic::slug($slug)->firstOrFail();
 
         $this->authorize('update', $topic);
 
-        $categories = Category::with('children')
-            ->whereNull('parent_id')
+        $categories = Category::treeForContext('community')
             ->orderBy('name')
             ->get();
 
