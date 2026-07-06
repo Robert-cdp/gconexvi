@@ -37,7 +37,7 @@
                         </div>
                         <h3 class="font-bold text-slate-800">{{ $service->title }}</h3>
                         <p class="text-sm text-slate-500 mt-1 line-clamp-2 flex-1">
-                            {{ strip_tags($service->description) }}
+                            {{ html_entity_decode(strip_tags($service->description)) }}
                         </p>
                         {{-- <div class="mt-4 flex items-center justify-between">
             <span class="flex items-center gap-1 text-yellow-500 font-semibold text-sm">⭐ 4.9 <span

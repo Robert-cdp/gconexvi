@@ -17,7 +17,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
+    @if(app()->environment('production'))
+        @include('app.google')
+    @endif
 </head>
 
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 antialiased">

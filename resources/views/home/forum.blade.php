@@ -5,7 +5,8 @@
                 <h2 class="text-3xl lg:text-4xl font-extrabold text-slate-900">Comunidad</h2>
                 <p class="text-slate-500 mt-2">Participa en debates, comparte conocimiento y resuelve dudas</p>
             </div>
-            <a href="{{ route('community.create') }}" class="px-5 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-md shadow-primary-200 transition-all">
+            <a href="{{ route('community.create') }}"
+                class="px-5 py-3 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 shadow-md shadow-primary-200 transition-all">
                 Crear nuevo Tema
             </a>
         </div>
@@ -26,7 +27,7 @@
                             </h3>
 
                             <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-                                {{ Str::limit(strip_tags($topic->content), 180) }}
+                                {{ Str::limit(html_entity_decode(strip_tags($topic->content)), 180) }} 
                             </p>
 
                             <div class="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-400">
