@@ -12,6 +12,7 @@ return Application::configure(basePath: dirname(__DIR__))
             __DIR__ . '/../routes/community.php',
             __DIR__ . '/../routes/services.php',
             __DIR__ . '/../routes/employments.php',
+            __DIR__ . '/../routes/p2p.php',
             __DIR__ . '/../routes/member.php',
             __DIR__ . '/../routes/reviews.php',
             __DIR__ . '/../routes/chat.php',
