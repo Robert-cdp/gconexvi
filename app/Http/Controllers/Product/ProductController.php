@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Product\Store;
 use App\Http\Requests\Product\Update;
+use App\Models\Categories\Category;
 use App\Models\Products\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -32,7 +33,11 @@ class ProductController extends Controller
      */
     public function create(): View
     {
-        return view('marketplace.create');
+        $categories = Category::treeForContext('marketplace')
+            ->orderBy('name')
+            ->get();
+
+        return view('marketplace.create', compact('categories'));
     }
 
     /**
@@ -82,9 +87,13 @@ class ProductController extends Controller
      */
     public function edit(Product $product): View
     {
+        $categories = Category::treeForContext('marketplace')
+            ->orderBy('name')
+            ->get();
+
         $this->authorize('update', $product);
 
-        return view('marketplace.edit', compact('product'));
+        return view('marketplace.edit', compact('product', 'categories'));
     }
 
     /**
