@@ -9,6 +9,7 @@ use App\Models\Chat\Message;
 use App\Models\Employment\Employment;
 use App\Models\Products\Product;
 use App\Models\Services\Service;
+use App\Notifications\ConversationCreatedNotification;
 use Illuminate\Support\Facades\Auth;
 
 class ConversationController extends Controller
@@ -51,12 +52,20 @@ class ConversationController extends Controller
             [
                 'conversationable_type' => $conversationable::class,
                 'conversationable_id'   => $conversationable->id,
-                'user_id'               => Auth::user()->id,
+                'user_id'               => Auth::id(),
             ],
             [
                 'owner_id' => $conversationable->user_id,
             ]
         );
+
+        if ($conversation->wasRecentlyCreated) {
+            $conversation->owner->notify(
+                new ConversationCreatedNotification($conversation)
+            );
+        }
+
+        return redirect()->route('chat.conversations.show', $conversation);
 
         return redirect()->route('chat.conversations.show', $conversation);
     }
