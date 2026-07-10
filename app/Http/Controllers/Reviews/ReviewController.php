@@ -5,35 +5,54 @@ namespace App\Http\Controllers\Reviews;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Reviews\Store;
 use App\Http\Requests\Reviews\Update;
+use App\Models\Products\Product;
 use App\Models\Reviews\Review;
 use App\Models\Services\Service;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ReviewController extends Controller
 {
-    public function create(Service $service)
+    protected function resolveReviewable(string $type, int $id)
     {
-        $this->authorize('create', [Review::class, $service]);
+        return match ($type) {
+            'service' => Service::findOrFail($id),
+            'product' => Product::findOrFail($id),
 
-        return view('reviews.create', compact('service'));
+            default => abort(404),
+        };
     }
 
-    public function store(Store $request, Service $service)
+    public function create(string $type, int $id): View
     {
-        $this->authorize('create', [Review::class, $service]);
+        $reviewable = $this->resolveReviewable($type, $id);
 
-        $service->reviews()->create([
-            'user_id' => Auth::user()->id,
+        $this->authorize('create', [Review::class, $reviewable]);
+
+        return view('reviews.create', compact('reviewable', 'type'));
+    }
+
+    public function store(Store $request): RedirectResponse
+    {
+        $reviewable = $this->resolveReviewable(
+            $request->type,
+            $request->id
+        );
+
+        $this->authorize('create', [Review::class, $reviewable]);
+
+        $reviewable->reviews()->create([
+            'user_id' => Auth::id(),
             'rating' => $request->integer('rating'),
             'comment' => $request->comment,
         ]);
 
-        return redirect()
-            ->route('services.show', $service)
+        return redirect($reviewable->url)
             ->with('success', 'Gracias por tu reseña.');
     }
 
-    public function update(Update $request, Review $review)
+    public function update(Update $request, Review $review): RedirectResponse
     {
         $this->authorize('update', $review);
 
@@ -45,7 +64,7 @@ class ReviewController extends Controller
         return back()->with('success', 'La reseña ha sido actualizada.');
     }
 
-    public function destroy(Review $review)
+    public function destroy(Review $review): RedirectResponse
     {
         $this->authorize('delete', $review);
 

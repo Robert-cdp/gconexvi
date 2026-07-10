@@ -7,6 +7,7 @@ use App\Http\Requests\Product\Store;
 use App\Http\Requests\Product\Update;
 use App\Models\Categories\Category;
 use App\Models\Products\Product;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +15,7 @@ use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-       /**
+    /**
      * Listado de productos.
      */
     public function index(): View
@@ -25,7 +26,18 @@ class ProductController extends Controller
             ->latest()
             ->paginate(20);
 
-        return view('marketplace.index', compact('products'));
+        $topSellers = User::with('products.reviews')->get()
+            ->map(function ($user) {
+                $user->reviews_count = $user->products->sum(
+                    fn($product) => $product->reviews->count()
+                );
+
+                return $user;
+            })
+            ->sortByDesc('reviews_count')
+            ->take(5);
+
+        return view('marketplace.index', compact('products', 'topSellers'));
     }
 
     /**
@@ -79,7 +91,10 @@ class ProductController extends Controller
             'conversations',
         ]);
 
-        return view('marketplace.show', compact('product'));
+        return view('marketplace.show', [
+            'product' => $product,
+            'reviewable' => $product,
+        ]);
     }
 
     /**

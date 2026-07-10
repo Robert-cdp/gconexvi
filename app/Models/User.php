@@ -8,6 +8,7 @@ use App\Models\Chat\Conversation;
 use App\Models\Chat\Message;
 use App\Models\Forum\Forum;
 use App\Models\Forum\Reply;
+use App\Models\Products\Product;
 use App\Models\Reviews\Review;
 use App\Models\Services\Service;
 use App\Traits\HasSlug;
@@ -65,6 +66,16 @@ class User extends Authenticatable
     public function services(): HasMany
     {
         return $this->hasMany(Service::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
     }
 
     public function averageRating()

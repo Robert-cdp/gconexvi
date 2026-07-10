@@ -38,10 +38,10 @@
                 Editar servicio
             </a>
         @endcan
-        @can('create', [App\Models\Review::class, $service])
-            <a href="{{ route('services.reviews.create', $service) }}"
+        @can('create', [App\Models\Reviews\Review::class, $service])
+            <a href="{{ route('reviews.create', ['type' => 'service', 'id' => $service->id]) }}"
                 class="flex items-center justify-center w-full py-3 border border-slate-300 text-slate-700 font-semibold rounded-xl hover:bg-slate-50 hover:border-slate-400 active:scale-[.98] transition-all">
-                Dejar Review
+                Dejar reseña
             </a>
         @endcan
 

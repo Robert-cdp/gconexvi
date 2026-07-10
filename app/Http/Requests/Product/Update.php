@@ -53,15 +53,6 @@ class Update extends FormRequest
                 ]),
             ],
 
-            'status' => [
-                'required',
-                Rule::in([
-                    'active',
-                    'inactive',
-                    'sold',
-                ]),
-            ],
-
             'location' => [
                 'nullable',
                 'string',
@@ -89,7 +80,6 @@ class Update extends FormRequest
             'description' => 'descripción',
             'price' => 'precio',
             'type' => 'tipo de publicación',
-            'status' => 'estado',
             'location' => 'ubicación',
             'category_id' => 'categoría',
             'image' => 'imagen',

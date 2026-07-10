@@ -48,6 +48,11 @@ class Service extends Model
         return $this->categories->first();
     }
 
+    public function getUrlAttribute(): string
+    {
+        return route('services.show', $this);
+    }
+
     public function images(): HasMany
     {
         return $this->hasMany(ServiceImage::class)

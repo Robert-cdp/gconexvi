@@ -37,8 +37,8 @@
                 <h4 class="text-white font-semibold mb-4">Contacto</h4>
                 <ul class="space-y-2 text-sm">
                     <li class="flex items-center gap-2">Guatemala, Centroamérica</li>
-                    <li class="flex items-center gap-2">hola@conecta.com</li>
-                    <li class="flex items-center gap-2">+502 2222-3333</li>
+                    <li class="flex items-center gap-2">info@conexvi.com</li>
+                    <li class="flex items-center gap-2">+502 5443-0643</li>
                     <li class="flex items-center gap-2">Lun-Vie 8am-6pm</li>
                 </ul>
             </div>

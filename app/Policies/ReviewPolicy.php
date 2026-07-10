@@ -3,20 +3,20 @@
 namespace App\Policies;
 
 use App\Models\Reviews\Review;
-use App\Models\Services\Service;
+use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
 class ReviewPolicy
 {
-    public function create(User $user, Service $service): bool
+    public function create(User $user, Model $reviewable): bool
     {
         // No puede calificarse a sí mismo
-        if ($service->user_id === $user->id) {
+        if ($reviewable->user_id === $user->id) {
             return false;
         }
 
         // Solo una review por usuario
-        return ! $service->reviews()
+        return ! $reviewable->reviews()
             ->where('user_id', $user->id)
             ->exists();
     }

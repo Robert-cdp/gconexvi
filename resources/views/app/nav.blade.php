@@ -18,4 +18,9 @@
         class="px-4 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
         Comunidad
     </a>
+
+    <a href="{{ route('marketplace.index') }}"
+        class="px-4 py-2 rounded-lg text-sm font-medium text-slate-700 hover:bg-primary-50 hover:text-primary-600 transition-colors">
+        Marketplace
+    </a>
 </nav>

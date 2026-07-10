@@ -3,8 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Reviews\ReviewController;
 
-Route::get('services/{service}/reviews/create', [ReviewController::class, 'create'])
-    ->name('services.reviews.create');
+Route::middleware('auth')->group(function () {
 
-Route::post('services/{service}/reviews', [ReviewController::class, 'store'])
-    ->name('services.reviews.store');
+    Route::get('reviews/create/{type}/{id}', [ReviewController::class, 'create'])
+        ->name('reviews.create');
+
+    Route::post('reviews', [ReviewController::class, 'store'])
+        ->name('reviews.store');
+
+});
