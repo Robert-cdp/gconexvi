@@ -1,5 +1,6 @@
 <div class="space-y-6">
     @forelse ($replies as $item)
+    
         <article class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
 
             {{-- Encabezado --}}

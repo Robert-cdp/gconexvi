@@ -20,5 +20,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Públicas
-Route::get('services', [ServiceController::class, 'index'])->name('services.index');
-Route::get('services/{service}', [ServiceController::class, 'show'])->name('services.show');
+Route::get('services', [ServiceController::class, 'index'])
+    ->name('services.index');
+
+Route::get('services/category/{category:slug}', [ServiceController::class, 'index'])
+    ->name('services.category');
+
+Route::get('services/{service:slug}', [ServiceController::class, 'show'])
+    ->name('services.show');

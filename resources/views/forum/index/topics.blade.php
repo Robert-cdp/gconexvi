@@ -12,10 +12,6 @@
                     </a>
                 </h3>
 
-                <p class="text-sm text-slate-500 mt-1 line-clamp-2">
-                    {{ Str::limit(strip_tags($topic->content), 180) }}
-                </p>
-
                 <div class="flex flex-wrap items-center gap-3 mt-3 text-xs text-slate-400">
                     <span class="flex items-center gap-1">
                         {{ $topic->user->name }}

@@ -12,13 +12,18 @@ use App\Http\Requests\Forum\UpdateTopic;
 
 class TopicController extends Controller
 {
-    public function index()
+    public function index(?Category $category = null)
     {
         $topics = Topic::with([
             'user',
             'categories',
         ])
             ->withCount('replies')
+            ->when($category, function ($query) use ($category) {
+                $query->whereHas('categories', function ($q) use ($category) {
+                    $q->where('categories.id', $category->id);
+                });
+            })
             ->latest()
             ->paginate(8);
 
@@ -40,7 +45,7 @@ class TopicController extends Controller
             ->sortByDesc('contributions')
             ->take(5);
 
-        return view('forum.index', compact('topics', 'categories', 'activeUsers'));
+        return view('forum.index', compact('topics', 'categories', 'category', 'activeUsers'));
     }
 
     public function create()

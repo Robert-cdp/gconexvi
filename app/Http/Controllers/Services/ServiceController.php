@@ -29,7 +29,18 @@ class ServiceController extends Controller
             ->latest()
             ->paginate(8);
 
-        return view('services.index', compact('services', 'category'));
+        $categories = Category::forContext('services')
+            ->whereNull('parent_id')
+            ->with('children')
+            ->withCount('services')
+            ->orderBy('name')
+            ->get();
+
+        return view('services.index', compact(
+            'services',
+            'categories',
+            'category'
+        ));
     }
 
     public function create()

@@ -1,58 +1,60 @@
-<article class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-3">
+{{-- Publicación principal — diseño de artículo, no de respuesta --}}
+<article class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden mb-8">
 
-    {{-- Encabezado --}}
-    <header class="px-6 py-5 bg-slate-50 border-b border-slate-200">
-        <div class="flex items-start gap-4">
+    {{-- Cabecera: autor, estado, fecha, editar --}}
+    <header class="px-6 pt-6 pb-4 sm:flex sm:items-start sm:justify-between">
+        <div class="flex items-center gap-4">
+            <img src="{{ Storage::url($topic->user->avatar ?? 'images/default-avatar.webp') }}"
+                 alt="{{ $topic->user->name }}"
+                 class="w-12 h-12 rounded-full object-cover ring-2 ring-slate-100 shrink-0">
 
-            <img src="{{ Storage::url($topic->user->avatar ?? 'images/default-avatar.webp') }}" alt="{{ $topic->user->name }}"
-                class="w-14 h-14 rounded-full object-cover ring-2 ring-primary-100 shrink-0">
-
-            <div class="flex-1 min-w-0">
-
-                <div class="flex flex-wrap items-center gap-2 mb-2">
-
-                    @if ($topic->status === 'active')
-                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700">
-                            Activo
-                        </span>
-                    @else
-                        <span class="px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
-                            Cerrado
-                        </span>
-                    @endif
-
-                </div>
-
-                <h1 class="text-2xl font-bold text-slate-900 leading-tight">
-                    {{ $topic->title }}
-                </h1>
-
-                <div class="flex flex-wrap items-center gap-2 mt-2 text-sm text-slate-500">
-                    <span class="font-medium text-slate-700">
-                        {{ $topic->user->name }}
-                    </span>
-
-                    <span>•</span>
-
+            <div>
+                <p class="font-semibold text-slate-900">
+                    {{ $topic->user->name }}
+                </p>
+                <div class="flex items-center gap-2 text-sm text-slate-500">
                     <time title="{{ $topic->created_at->format('d/m/Y H:i') }}">
                         {{ $topic->created_at->diffForHumans() }}
                     </time>
+
+                    @if ($topic->status === 'active')
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-green-50 text-green-700 border border-green-200">
+                            Activo
+                        </span>
+                    @else
+                        <span class="px-2 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
+                            Cerrado
+                        </span>
+                    @endif
                 </div>
-
             </div>
-
         </div>
+
         @can('update', $topic)
-    <a href="{{ route('community.edit', $topic->slug) }}"
-       class="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-lg border border-slate-200 hover:bg-slate-50">
-        Editar
-    </a>
-@endcan
+            <div class="mt-3 sm:mt-0">
+                <a href="{{ route('community.edit', $topic->slug) }}"
+                   class="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-slate-600 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path d="M2.695 14.763l-1.262 3.154a.5.5 0 0 0 .65.65l3.155-1.262a4 4 0 0 0 1.343-.885L17.5 5.5a2.121 2.121 0 0 0-3-3L3.58 13.42a4 4 0 0 0-.885 1.343Z" />
+                    </svg>
+                    Editar
+                </a>
+            </div>
+        @endcan
     </header>
 
+    {{-- Título --}}
+    <div class="px-6 pb-2">
+        <h1 class="text-2xl sm:text-3xl font-bold text-slate-900 leading-tight">
+            {{ $topic->title }}
+        </h1>
+    </div>
+
     {{-- Contenido --}}
-    <div class="px-6 py-6">
-        <div class="prose prose-slate max-w-none leading-7">
+    <div class="px-6 pb-6">
+        <div class="prose prose-slate max-w-none text-base leading-7
+                    prose-a:text-primary-600 prose-a:underline hover:prose-a:no-underline
+                    prose-img:rounded-lg prose-img:shadow-sm">
             {!! $topic->content !!}
         </div>
     </div>

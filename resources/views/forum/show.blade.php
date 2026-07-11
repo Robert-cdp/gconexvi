@@ -7,9 +7,11 @@
 
         @include('forum.show.topic')
 
-        <h2 class="text-lg font-bold text-slate-800 mb-4">Respuestas ({{ $topic->replies->count() }})</h2>
+        <h2 class="text-lg font-bold text-slate-800 mb-4">
+            Respuestas ({{ $topic->replies->count() }})
+        </h2>
 
-        <div class="space-y-4" x-data="{ likes: [8, 5, 12], dioLike: [false, false, false] }">
+        <div class="space-y-4">
             @include('forum.show.replies')
         </div>
 
