@@ -60,12 +60,8 @@ class ConversationController extends Controller
         );
 
         if ($conversation->wasRecentlyCreated) {
-            $conversation->owner->notify(
-                new ConversationCreatedNotification($conversation)
-            );
+            $conversation->owner->notify(new ConversationCreatedNotification($conversation, Auth::user()));
         }
-
-        return redirect()->route('chat.conversations.show', $conversation);
 
         return redirect()->route('chat.conversations.show', $conversation);
     }
