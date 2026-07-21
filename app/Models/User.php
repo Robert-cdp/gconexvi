@@ -18,14 +18,16 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Attributes\UsePolicy;
 use App\Policies\UserPolicy;
+use App\Traits\HasChat;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Permission\Traits\HasRoles;
 
 #[UsePolicy(UserPolicy::class)]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, HasSlug, HasRoles;
+    use HasFactory, Notifiable, HasSlug, HasRoles, HasChat;
 
     /**
      * The attributes that are mass assignable.
@@ -61,6 +63,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        return $this->avatar
+            ? Storage::url($this->avatar)
+            : Storage::url('images/default-avatar.webp');
     }
 
     public function services(): HasMany
@@ -120,20 +129,5 @@ class User extends Authenticatable
     public function forumReplies(): HasMany
     {
         return $this->hasMany(Reply::class);
-    }
-
-    public function conversations()
-    {
-        return $this->hasMany(Conversation::class);
-    }
-
-    public function ownedConversations()
-    {
-        return $this->hasMany(Conversation::class, 'owner_id');
-    }
-
-    public function messages()
-    {
-        return $this->hasMany(Message::class);
     }
 }

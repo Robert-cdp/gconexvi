@@ -24,16 +24,8 @@ class ConversationController extends Controller
     public function index()
     {
         $conversations = Conversation::query()
-            ->where(function ($query) {
-                $query->where('owner_id', Auth::user()->id)
-                    ->orWhere('user_id', Auth::user()->id);
-            })
-            ->with([
-                'conversationable',
-                'lastMessage.user',
-            ])
-            ->withMax('messages', 'created_at')
-            ->orderByDesc('messages_max_created_at')
+            ->forUser(Auth::user())
+            ->withMenuData()
             ->paginate(15);
 
         return view('chat.index', compact('conversations'));

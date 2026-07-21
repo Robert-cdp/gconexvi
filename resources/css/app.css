@@ -46,4 +46,8 @@
     --color-warm-700: #c2410c;
     --color-warm-800: #9a3412;
     --color-warm-900: #7c2d12;
-}   
+}
+
+[x-cloak] {
+    display: none !important;
+}
