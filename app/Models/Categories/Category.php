@@ -97,7 +97,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function forums()
+    public function community()
     {
         return $this->morphedByMany(Forum::class, 'categorizable');
     }
