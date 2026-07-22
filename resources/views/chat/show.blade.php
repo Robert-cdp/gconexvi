@@ -3,38 +3,35 @@
 @section('title', 'Conversación')
 
 @section('content')
-<div x-data="{ sidebarOpen: false }" class="flex h-screen overflow-hidden bg-gray-50">
-    
-    {{-- Overlay para mobile --}}
-    <div 
-        x-show="sidebarOpen" 
-        class="fixed inset-0 bg-black/40 z-20 lg:hidden backdrop-blur-sm"
-        @click="sidebarOpen = false"
-        x-transition.opacity
-    ></div>
+    <div x-data="{
+        sidebarOpen: false,
+        init() {
+            this.$nextTick(() => {
+                const container = document.getElementById('chat-messages');
+                if (container) container.scrollTop = container.scrollHeight;
+            });
+        }
+    }"
+        class="h-[calc(80vh-4rem)] flex overflow-hidden rounded-xl shadow-sm border border-gray-200/80 bg-white">
 
-    {{-- SIDEBAR IZQUIERDO --}}
-    @include('chat.partials.aside')
+        {{-- Sidebar contextual (escritorio) --}}
+        @include('chat.show._sidebar')
+        {{-- Overlay del sidebar en móvil --}}
+        @include('chat.show._overlay')
 
-    {{-- CHAT PRINCIPAL --}}
-    <div class="flex-1 flex flex-col min-w-0 bg-white">
-        {{-- Encabezado --}}
-        @include('chat.partials.chat-header')
+        {{-- Panel principal del chat --}}
+        <div class="flex-1 flex flex-col min-w-0 bg-gradient-to-b from-white to-gray-50/30">
 
-        {{-- Área de mensajes --}}
-        @include('chat.partials.chat-content')
+            {{-- Header --}}
+            @include('chat.show._header')
 
-        {{-- Formulario de envío --}}
-        @include('chat.partials.chat-form')
+            {{-- Área de mensajes --}}
+            @include('chat.show._messages')
+
+            {{-- Formulario inferior --}}
+            @include('chat.show._form')
+        </div>
     </div>
-</div>
 
-@if(!$conversation->messages->isEmpty())
-<script>
-    const container = document.getElementById('messages-container');
-    if (container) {
-        container.scrollTop = container.scrollHeight;
-    }
-</script>
-@endif
+    @include('chat.show._scripts')
 @endsection

@@ -82,7 +82,6 @@ trait HasConversation
             $query
                 ->where('owner_id', $user->id)
                 ->orWhere('user_id', $user->id);
-
         });
     }
 
@@ -129,7 +128,6 @@ trait HasConversation
             throw new RuntimeException(
                 "La conversación {$this->id} no tiene un usuario participante válido."
             );
-
         }
 
 
@@ -169,8 +167,8 @@ trait HasConversation
             $this->owner,
             $this->user,
         ])
-        ->filter()
-        ->values();
+            ->filter()
+            ->values();
     }
 
     /*
@@ -278,5 +276,21 @@ trait HasConversation
             ->conversationable
             ? class_basename($this->conversationable)
             : null;
+    }
+
+    public function messagesForChat()
+    {
+        return $this->messages;
+    }
+
+    public function loadForChat(): static
+    {
+        return $this->load([
+            'conversationable',
+            'owner',
+            'user',
+            'lastMessage.user',
+            'messages.user',
+        ]);
     }
 }

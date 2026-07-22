@@ -62,26 +62,12 @@ class ConversationController extends Controller
     {
         $this->authorize('view', $conversation);
 
-        $conversation->load([
-            'conversationable',
-            'owner',
-            'user',
-            'lastMessage.user',
-            'messages' => fn($query) => $query
-                ->with('user')
-                ->oldest(),
-        ]);
-
-        $conversation->messages()
-            ->whereNull('read_at')
-            ->where('user_id', '!=', Auth::user()->id)
-            ->update([
-                'read_at' => now(),
-            ]);
+        $conversation
+            ->loadForChat()
+            ->markAsRead(auth()->user());
 
         return view('chat.show', compact('conversation'));
     }
-
     private function resolveConversationable(string $type, int $id)
     {
         $model = $this->types[$type];
