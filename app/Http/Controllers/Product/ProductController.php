@@ -32,14 +32,14 @@ class ProductController extends Controller
             ->paginate(20);
 
 
-        $categories = Category::forContext('products')
+        $categories = Category::forContext('marketplace')
             ->whereNull('parent_id')
             ->with([
                 'children' => fn($query) => $query
-                    ->withCount('products')
+                    ->withCount('marketplace')
                     ->orderBy('name')
             ])
-            ->withCount('products')
+            ->withCount('marketplace')
             ->orderBy('name')
             ->get();
 
