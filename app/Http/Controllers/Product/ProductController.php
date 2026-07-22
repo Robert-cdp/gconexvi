@@ -18,16 +18,36 @@ class ProductController extends Controller
     /**
      * Listado de productos.
      */
-    public function index(): View
+    public function index(?Category $category = null): View
     {
         $products = Product::query()
             ->with(['user', 'categories'])
             ->where('status', 'active')
+            ->when($category, function ($query) use ($category) {
+                $query->whereHas('categories', function ($q) use ($category) {
+                    $q->where('categories.id', $category->id);
+                });
+            })
             ->latest()
             ->paginate(20);
 
-        $topSellers = User::with('products.reviews')->get()
+
+        $categories = Category::forContext('products')
+            ->whereNull('parent_id')
+            ->with([
+                'children' => fn($query) => $query
+                    ->withCount('products')
+                    ->orderBy('name')
+            ])
+            ->withCount('products')
+            ->orderBy('name')
+            ->get();
+
+
+        $topSellers = User::with('products.reviews')
+            ->get()
             ->map(function ($user) {
+
                 $user->reviews_count = $user->products->sum(
                     fn($product) => $product->reviews->count()
                 );
@@ -37,7 +57,13 @@ class ProductController extends Controller
             ->sortByDesc('reviews_count')
             ->take(5);
 
-        return view('marketplace.index', compact('products', 'topSellers'));
+
+        return view('marketplace.index', compact(
+            'products',
+            'topSellers',
+            'categories',
+            'category'
+        ));
     }
 
     /**

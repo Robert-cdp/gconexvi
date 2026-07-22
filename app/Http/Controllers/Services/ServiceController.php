@@ -31,7 +31,11 @@ class ServiceController extends Controller
 
         $categories = Category::forContext('services')
             ->whereNull('parent_id')
-            ->with('children')
+            ->with([
+                'children' => fn($query) => $query
+                    ->withCount('services')
+                    ->orderBy('name')
+            ])
             ->withCount('services')
             ->orderBy('name')
             ->get();

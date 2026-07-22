@@ -24,8 +24,11 @@ Route::middleware('auth')->group(function () {
 });
 
 // Públicas
-Route::get('community/{category:slug?}', [TopicController::class, 'index'])
+Route::get('community', [TopicController::class, 'index'])
     ->name('community.index');
+
+Route::get('community/category/{category:slug}', [TopicController::class, 'index'])
+    ->name('community.category');
 
 Route::get('community/topic/{community:slug}', [TopicController::class, 'show'])
     ->name('community.show');

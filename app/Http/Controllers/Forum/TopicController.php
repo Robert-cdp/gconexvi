@@ -27,9 +27,14 @@ class TopicController extends Controller
             ->latest()
             ->paginate(8);
 
-        $categories = Category::forContext('community')
-            ->with('children')
+        $categories = Category::forContext('services')
             ->whereNull('parent_id')
+            ->with([
+                'children' => fn($query) => $query
+                    ->withCount('services')
+                    ->orderBy('name')
+            ])
+            ->withCount('services')
             ->orderBy('name')
             ->get();
 

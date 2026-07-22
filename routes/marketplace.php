@@ -21,4 +21,8 @@ Route::middleware('auth')->group(function () {
 
 // Públicas
 Route::get('marketplace', [ProductController::class, 'index'])->name('marketplace.index');
+
+Route::get('marketplace/category/{category:slug}', [ProductController::class, 'index'])
+    ->name('marketplace.category');
+
 Route::get('marketplace/{product}', [ProductController::class, 'show'])->name('marketplace.show');
