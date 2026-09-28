@@ -87,7 +87,7 @@ class Category extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function products()
+    public function marketplace()
     {
         return $this->morphedByMany(Product::class, 'categorizable');
     }
